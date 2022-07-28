@@ -53,6 +53,8 @@ WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then(
 
 		// below code is to avoid deadlock
 		const result = globalThis[func](...funcArgs);
+
+		// output as strout
     console.log(result);
     process.exit();
 	});
