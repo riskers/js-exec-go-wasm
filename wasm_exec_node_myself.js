@@ -35,13 +35,23 @@ go.argv = process.argv.slice(2);
 go.env = Object.assign({ TMPDIR: require("os").tmpdir() }, process.env);
 go.exit = process.exit;
 
-// 获取方法名
+// get method name
 let func = process.argv[3];
-// 获取方法参数
+
+// get function arguments
 let funcArgs = process.argv.slice(4);
 
 WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then((result) => {
 	process.on("exit", (code) => { // Node.js exits if no event handler is pending
+
+		// commend the block avoid deadlock
+		// if (code === 0 && !go.exited) {
+    //   // deadlock, make Go print error and stack traces
+    //   go._pendingEvent = { id: 0 };
+    //   go._resume();
+    // }
+
+		// below code is to avoid deadlock
 		const result = globalThis[func](...funcArgs);
     console.log(result);
     process.exit();
