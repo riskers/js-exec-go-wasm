@@ -1,7 +1,7 @@
-Nodejs execute WASM that Golang compiled
+Nodejs execute WASM that Golang compiled.
 
-> Go Version: `go1.18.3 darwin/arm64`
-> Nodejs Version: `v16.15.1`
+* Go Version: `go1.18.3 darwin/arm64`
+* Nodejs Version: `v16.15.1`
 
 * Source Code:
   * `main.go`: Golang code
@@ -15,17 +15,21 @@ Nodejs execute WASM that Golang compiled
 * Official Node.js provide ([Nodejs with WebAssembly](https://nodejs.dev/learn/nodejs-with-webassembly))
   * `nodejs_with_assembly.js`: occur(`[TypeError: WebAssembly.instantiate(): Imports argument must be present and must be an object]`) !
 
+---
+
 So far, we found WASM that Golang compiled can run on browser but Node.js.
 
-Actually, we must make some changes `nodejs_with_assembly.js` in order to run WASM on Node.js:
+Actually, we must make some changes in order to run WASM on Node.js:
 
-* `wasm_exec_node_myself.js`: changed I make based on `nodejs_with_assembly.js`
+* `wasm_exec_node_myself.js`: changed I make based on `wasm_exec_node.js`
 
 Have Try:
 
 ```bash
 > node ./wasm_exec_node_myself.js ./test.wasm add 1 2
 ```
+
+Success!
 
 In order to be used as a normal `npm` package:
 
