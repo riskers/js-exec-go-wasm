@@ -12,6 +12,8 @@ Nodejs execute WASM that Golang compiled.
 
 * [wasm_exec.js](./wasm_exec.js): core code WASM run on Node.js and browser
 * [wasm_exec.html](./wasm_exec.html):  browser using WASM template, run!
+  > Notice: param of `add` method is string not number
+  > ![](https://i.imgur.com/4qJ6g9a.png)
 * [wasm_exec_node.js](./wasm_exec_node.js): Nodejs using WASM template, occur(deadlock)!
 
 **Official Node.js provide** ([Nodejs with WebAssembly](https://nodejs.dev/learn/nodejs-with-webassembly)):
