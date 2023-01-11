@@ -1,5 +1,7 @@
 ---
-[ZN](https://riskers.notion.site/Nodejs-Go-WASM-2e69fc4451f04f0a9771c18bbf68f923)
+
+[CN](https://riskers.notion.site/Nodejs-Go-WASM-2e69fc4451f04f0a9771c18bbf68f923)
+
 ---
 
 Nodejs execute WASM that Golang compiled.
