@@ -5,8 +5,8 @@ import (
 	"syscall/js"
 )
 
-// this 是 JavaScript 中的 this
-// args  是在 JavaScript 中调用该函数的参数列表
+// this: JavaScript's this
+// args: JavaScript's function params
 func add(this js.Value, args []js.Value) interface{} {
 	a, _ := strconv.Atoi(args[0].String())
 	b, _ := strconv.Atoi(args[1].String())
@@ -16,7 +16,7 @@ func add(this js.Value, args []js.Value) interface{} {
 func main() {
 	js.Global().Set("add", js.FuncOf(add))
 
-	// 创建一个空的非缓冲通道，并尝试从该通道中接受数据。
-	// 因为没有人向它发送任何东西，它本质上是一个永久的阻塞操作，允许我们永远运行我们的程序。
+	// Create an empty non-buffered channel and try to accept data from it.
+	// Since no one sends anything to it, it is essentially a permanent blocking operation, allowing us to run our program forever. Create an empty non-buffered channel and try to accept data from it.
 	<-make(chan bool)
 }

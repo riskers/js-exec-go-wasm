@@ -1,6 +1,3 @@
-/*
- * Of course, you can use child_process.execSync() to get the same result.
- */
 const {exec} = require('shelljs')
 
 const wasmExec = (func, funcArgs) => {
@@ -11,6 +8,12 @@ const wasmExec = (func, funcArgs) => {
     })
     .join(' ');
 
+  /*
+   * Of course, you can use child_process to get the same result:
+   * const { spawnSync } = require('node:child_process');
+   * 
+   * const proc = spawnSync('node', ['./wasm_exec_node_myself.js', './test.wasm', func, ...funcArgs], { env: allEnv });
+   */
   const result = exec(
     `node ./wasm_exec_node_myself.js ./test.wasm ${func} ${args}`,
     {
