@@ -12,9 +12,9 @@ Nodejs execute WASM that Golang compiled.
 **Source Code**:
 
 * [main.go](./main.go): Golang code
-* [test.wasm](./test.wasm): WASM file compiled by `main.go`
+* [test.wasm](./test.wasm): WASM file compiled by `main.go`. Bulid command: `GOOS=js GOARCH=wasm go build -o test.wasm main.go`
 
-**Official Golang provide** (`$(go env GOROOT)/misc/wasm/`):
+**Official Golang** (`$(go env GOROOT)/misc/wasm/`):
 
 * [wasm_exec.js](./wasm_exec.js): core code WASM run on Node.js and browser
 * [wasm_exec.html](./wasm_exec.html):  browser using WASM template, run!
@@ -22,7 +22,7 @@ Nodejs execute WASM that Golang compiled.
   > ![](https://i.imgur.com/4qJ6g9a.png)
 * [wasm_exec_node.js](./wasm_exec_node.js): Nodejs using WASM template, occur(deadlock)!
 
-**Official Node.js provide** ([Nodejs with WebAssembly](https://nodejs.dev/learn/nodejs-with-webassembly)):
+**Official Node.js** ([Nodejs with WebAssembly](https://nodejs.dev/learn/nodejs-with-webassembly)):
 
 * [nodejs_with_assembly.js](./nodejs_with_assembly.js): occur(`[TypeError: WebAssembly.instantiate(): Imports argument must be present and must be an object]`) !
 
