@@ -19,7 +19,7 @@ const instant = await wasi.instantiate(module, {});
 let exitCode = wasi.start();
 let stdout = wasi.getStdoutString();
 
-// https://i.imgur.com/yVsJs2F.png
+// https://i.imgur.com/EKcm1wu.png
 console.log( instant.exports )
 
 // 223

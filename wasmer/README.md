@@ -14,11 +14,11 @@
 ## Usage on browser
 
 * [wasm_exec.html](./wasm_exec.html): browser using WASM template, run!
-  ![](https://i.imgur.com/yH3jM2E.png)
+  ![](https://i.imgur.com/io5tJVO.png)
 * [wasm_exec.js](./wasm_exec.js): core code WASM run on Node.js and browser. `cp $(tinygo env TINYGOROOT)/targets/wasm_exec.js .`
   > `go.importObject` must be supplyed as argument of  `WebAssembly.instantiate`, because wasm is compiled by TinyGo.
 
 ## Usage on Node.js
 
 * [using_wasmer.mjs](./using_wasmer.mjs): 
-  ![](https://i.imgur.com/yVsJs2F.png)
+  ![](https://i.imgur.com/EKcm1wu.png)

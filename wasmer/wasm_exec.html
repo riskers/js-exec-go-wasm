@@ -41,6 +41,8 @@ license that can be found in the LICENSE file.
 			const moduleBytes = fetch("./test.wasm");
 			const module = await WebAssembly.instantiateStreaming(moduleBytes, go.importObject);
 
+			// https://i.imgur.com/io5tJVO.png
+			console.log(module.instance.exports);
 			// 223
 			console.log(module.instance.exports.add(1, 222))
 	})()
