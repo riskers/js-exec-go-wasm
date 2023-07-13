@@ -1,4 +1,4 @@
-# Golang syscall/js
+# Golang syscall/js + `wasm_exec_node.js`
 
 ## Source Code
 
