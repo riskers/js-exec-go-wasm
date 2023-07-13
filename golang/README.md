@@ -1,6 +1,6 @@
 # Golang syscall/js + `wasm_exec_node.js`
 
-## Source Code
+## WASM
 
 * [main.go](./main.go): Golang code
 * [test.wasm](./test.wasm): a WASM file compiled from `main.go`. Bulid command: `GOOS=js GOARCH=wasm go build -o test.wasm main.go`

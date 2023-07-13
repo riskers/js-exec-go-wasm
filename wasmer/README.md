@@ -4,12 +4,11 @@
 
 > It doesn't seem to work with `syscall/js` compiled wasm files, I used [tinygo](https://tinygo.org/) instead.
 
-## WASM source code
+## WASM
 
 * [main.go](./main.go): Golang code (Notice: did not use `syscall/js`)
-
-## TinyGo
 * [test.wasm](./test.wasm): WASM file compiled by [tinygo](https://tinygo.org/). Bulid command: `tinygo build -o test.wasm -target wasi main.go`
+  > TinyGo command: https://tinygo.org/docs/guides/webassembly/wasi/
 
 ## Usage on browser
 
