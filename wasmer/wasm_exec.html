@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>TinyGo + wasmer</title>
+</head>
+
+<body>
+	<!--
+	Add the following polyfill for Microsoft Edge 17/18 support:
+	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
+	(see https://caniuse.com/#feat=textencoder)
+	-->
+	<script src="wasm_exec.js"></script>
+
+	<script type="module">
+	import { init, WASI } from 'https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/+esm'
+
+	if (!WebAssembly.instantiateStreaming) { // polyfill
+		WebAssembly.instantiateStreaming = async (resp, importObject) => {
+			const source = await (await resp).arrayBuffer();
+			return await WebAssembly.instantiate(source, importObject);
+		};
+	}
+
+	;(async () => {
+		  await init();
+
+			let wasi = new WASI({
+				env: {},
+				args: [],
+			});
+
+			const go = new Go()
+			const moduleBytes = fetch("./test.wasm");
+			const module = await WebAssembly.instantiateStreaming(moduleBytes, go.importObject);
+
+			// 223
+			console.log(module.instance.exports.add(1, 222))
+	})()
+	</script>
+
+</body>
+
+</html>
