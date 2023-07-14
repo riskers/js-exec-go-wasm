@@ -7,8 +7,9 @@
 ## WASM
 
 * [main.go](./main.go): Golang code (Notice: did not use `syscall/js`)
-* [test.wasm](./test.wasm): WASM file compiled by [tinygo](https://tinygo.org/). Bulid command: `tinygo build -o test.wasm -target wasi main.go`
+* [main.wasm](./main.wasm): WASM file compiled by [tinygo](https://tinygo.org/). Bulid command: `tinygo build -o main.wasm -target wasi main.go`
   > TinyGo command: https://tinygo.org/docs/guides/webassembly/wasi/
+  > wasm file that tinygo compile size is `13kb`, however Golang compile [wasm](../golang/main.wasm) is `1.4mb`
 
 ## Usage on browser
 

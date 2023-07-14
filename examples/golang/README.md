@@ -1,9 +1,9 @@
-# Golang syscall/js + `wasm_exec_node.js`
+# Golang `syscall/js` + `wasm_exec_node.js`
 
 ## WASM
 
 * [main.go](./main.go): Golang code
-* [test.wasm](./test.wasm): a WASM file compiled from `main.go`. Bulid command: `GOOS=js GOARCH=wasm go build -o test.wasm main.go`
+* [main.wasm](./main.wasm): a WASM file compiled from `main.go`. Bulid command: `GOOS=js GOARCH=wasm go build -o main.wasm main.go`
 
 ## Official Golang (`$(go env GOROOT)/misc/wasm/`)
 
@@ -28,7 +28,7 @@ Actually, we must make some changes in order to run WASM on Node.js.
 Have Try:
 
 ```bash
-> node ./wasm_exec_node_myself.js ./test.wasm add 1 222
+> node ./wasm_exec_node_myself.js ./main.wasm add 1 222
 ```
 
 Success!

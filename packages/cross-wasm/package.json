@@ -9,7 +9,7 @@
   ],
   "author": "riskers",
   "license": "MIT",
-  "description": "cross platform(browser and nodejs) exec wasm file",
+  "description": "Universal wasm for Node and Browsers. Cross platform(browser and nodejs) exec wasm file",
   "scripts": {
     "build": "tsup"
   },

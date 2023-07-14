@@ -11,10 +11,16 @@ Nodejs execute WASM that Golang compiled.
 
 ## Official Golang solution
 
-* [syscall/js](./golang/README.md)
+* [Golang syscall/js](./examples/golang/README.md)
 
 ## WASM runtime solution
 
 Here are some wasm runtime solutions:
 
-* [wasmer](./wasmer/README.md)
+* [tinygo+wasmer](./examples/tinygo-wasmer/README.md)
+
+## Pack WASM
+
+Universal wasm for Node and Browsers:
+
+* [cross-wasm](./packages/cross-wasm/README.md)
