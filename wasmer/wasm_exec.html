@@ -20,7 +20,7 @@ license that can be found in the LICENSE file.
 	<script src="wasm_exec.js"></script>
 
 	<script type="module">
-	import { init, WASI } from 'https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/+esm'
+	import { init } from 'https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/+esm'
 
 	if (!WebAssembly.instantiateStreaming) { // polyfill
 		WebAssembly.instantiateStreaming = async (resp, importObject) => {
