@@ -32,11 +32,6 @@ license that can be found in the LICENSE file.
 	;(async () => {
 		  await init();
 
-			let wasi = new WASI({
-				env: {},
-				args: [],
-			});
-
 			const go = new Go()
 			const moduleBytes = fetch("./test.wasm");
 			const module = await WebAssembly.instantiateStreaming(moduleBytes, go.importObject);
