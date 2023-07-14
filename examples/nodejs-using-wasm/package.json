@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-using-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cross-wasm": "workspace:^"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}

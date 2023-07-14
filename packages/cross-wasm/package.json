@@ -1,0 +1,59 @@
+{
+  "name": "cross-wasm",
+  "version": "0.0.1",
+  "keywords": [
+    "wasm",
+    "cross-platform",
+    "tinygo",
+    "wasmer"
+  ],
+  "author": "riskers",
+  "license": "MIT",
+  "description": "cross platform(browser and nodejs) exec wasm file",
+  "scripts": {
+    "build": "tsup"
+  },
+  "module": "./dist/browser/index.js",
+  "main": "./dist/node/index.js",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/browser/index.d.ts",
+      "default": "./dist/browser/index.js"
+    },
+    "./browser": {
+      "default": "./dist/browser/index.js"
+    },
+    "./node": {
+      "default": "./dist/node/index.js"
+    },
+    "./main.wasm": "./dist/main.wasm"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/browser/index.d.ts"
+      ],
+      "browser": [
+        "./dist/browser/index.d.ts"
+      ],
+      "node": [
+        "./dist/node/index.d.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "tsup": "^6.7.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@wasmer/wasi": "^1.2.2"
+  }
+}
