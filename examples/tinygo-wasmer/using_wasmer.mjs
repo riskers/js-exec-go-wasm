@@ -9,7 +9,7 @@ let wasi = new WASI({
   args: [],
 });
 
-const buf = fs.readFileSync('./test.wasm');
+const buf = fs.readFileSync('./main.wasm');
 
 const module = await WebAssembly.compile(
   new Uint8Array(buf)

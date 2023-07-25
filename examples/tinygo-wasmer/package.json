@@ -1,0 +1,15 @@
+{
+  "name": "tinygo-wasmer",
+  "version": "1.0.0",
+  "description": "[wasmer](https://github.com/wasmerio/wasmer) is a WebAssembly Runtime.",
+  "main": "wasm_exec.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wasmer/wasi": "^1.2.2"
+  }
+}

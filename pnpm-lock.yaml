@@ -95,6 +95,12 @@ importers:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@20.4.2)(typescript@5.1.6)
 
+  examples/tinygo-wasmer:
+    dependencies:
+      '@wasmer/wasi':
+        specifier: ^1.2.2
+        version: 1.2.2
+
   packages/cross-wasm:
     dependencies:
       '@wasmer/wasi':
