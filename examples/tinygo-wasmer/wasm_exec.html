@@ -33,7 +33,7 @@ license that can be found in the LICENSE file.
 		  await init();
 
 			const go = new Go()
-			const moduleBytes = fetch("./test.wasm");
+			const moduleBytes = fetch("./main.wasm");
 			const module = await WebAssembly.instantiateStreaming(moduleBytes, go.importObject);
 
 			// https://i.imgur.com/io5tJVO.png

@@ -7,6 +7,9 @@ Here I continue to explain with [wasmer solution](../../examples/wasmer/) as the
 
 In order to pack wasm and publish it to NPM, we need to solve: How to import different files of a package on different platforms? I use package.json fields: `exports` and `typesVersions`.
 
+## source code
+* [main.wasmer](./wasm/main.wasm): cp from [tinygo-wasmer](../../examples/tinygo-wasmer/main.wasm)
+
 ## Usage Examples
 
 * [browser](../../examples/browser-using-wasm/README.md)
