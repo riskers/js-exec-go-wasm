@@ -1,3 +1,9 @@
+--------------------------------
+
+Deprecated！
+
+--------------------------------
+
 # Golang `syscall/js` + `wasm_exec_node.js`
 
 ## WASM
