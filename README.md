@@ -1,6 +1,6 @@
 ---
 
-[中文说明](https://riskers.notion.site/Nodejs-Go-WASM-2e69fc4451f04f0a9771c18bbf68f923)
+[中文说明](https://riskers.notion.site/Nodejs-Browser-Go-WASM-2bd0c234951342f4931ba44c05c17c54?pvs=4)
 
 ---
 

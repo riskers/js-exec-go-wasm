@@ -1,8 +1,4 @@
 # Golang
-
-[tinygo](https://tinygo.org/) can reduce the wasm size!
-> TinyGo command: https://tinygo.org/docs/guides/webassembly/
-
 ## WASM
 
 ```bash
