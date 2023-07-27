@@ -4,8 +4,7 @@
   "keywords": [
     "wasm",
     "cross-platform",
-    "tinygo",
-    "wasmer"
+    "tinygo"
   ],
   "author": "riskers",
   "license": "MIT",
@@ -52,8 +51,5 @@
   "devDependencies": {
     "tsup": "^6.7.0",
     "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "@wasmer/wasi": "^1.2.2"
   }
 }

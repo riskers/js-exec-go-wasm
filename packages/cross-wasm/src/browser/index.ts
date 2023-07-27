@@ -1,9 +1,12 @@
-import { init } from '@wasmer/wasi';
 import type { InitializeOptions, Service, initializeFn } from '../shared/types.js';
-import { Go } from './wasm_exec';
+import Go from './wasm_exec';
 
 export const add = (a: number, b: number) => {
   return ensureServiceIsRunning().add(a, b)
+}
+
+export const Keccak256 = (data: string) => {
+  return ensureServiceIsRunning().Keccak256(data)
 }
 
 export const initialize: typeof initializeFn = async (options: InitializeOptions) => {
@@ -20,20 +23,24 @@ export const initialize: typeof initializeFn = async (options: InitializeOptions
   longLivedService = longLivedService || (await initializePromise);
 };
 
-const instantiateWASM = async (wasmURL: string, importObject: Record<string, any>): Promise<WebAssembly.WebAssemblyInstantiatedSource> => {
-  let response = undefined;
+const instantiateWASM = async (wasmURL: string): Promise<WebAssembly.WebAssemblyInstantiatedSource> => {
+  let module = undefined;
+  const go = new Go();
 
-  if (WebAssembly.instantiateStreaming) {
-    response = await WebAssembly.instantiateStreaming(fetch(wasmURL), importObject);
-  } else {
-    const fetchAndInstantiateTask = async () => {
-      // const wasmArrayBuffer = await fetch(wasmURL).then((res) => res.arrayBuffer());
-      return WebAssembly.instantiateStreaming(fetch(wasmURL), importObject);
-    };
-    response = await fetchAndInstantiateTask();
+  if (!WebAssembly.instantiateStreaming) {
+    WebAssembly.instantiateStreaming = async (resp, importObject) => {
+			const source = await (await resp).arrayBuffer();
+			return await WebAssembly.instantiate(source, importObject);
+		};
   }
 
-  return response;
+  const fetchAndInstantiateTask = async () => {
+    return WebAssembly.instantiateStreaming(fetch(wasmURL), go.importObject);
+  };
+  module = await fetchAndInstantiateTask();
+  go.run(module.instance);
+
+  return module;
 };
 
 let initializePromise: Promise<Service> | undefined;
@@ -46,15 +53,14 @@ const ensureServiceIsRunning = (): Service => {
 };
 
 const startRunningService = async (wasmURL: string): Promise<Service> => {
-  await init();
-  const go = new Go();
-  const module = await instantiateWASM(wasmURL, go.importObject);
-  
+  const module = await instantiateWASM(wasmURL);
   const exports: any = module.instance.exports;
 
   const { add } = exports;
+  const { Keccak256 } = (globalThis as any)
 
   return {
-    add
+    add,
+    Keccak256
   }
 };

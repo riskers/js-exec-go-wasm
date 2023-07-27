@@ -3,12 +3,15 @@ Universal wasm for Node and Browsers.
 
 Can we use same wasm file both Nodejs and browser?
 
-Here I continue to explain with [wasmer solution](../../examples/wasmer/) as the source code.
+Here I continue to explain with [tinygo solution](../../examples/tinygo/README.md) as the source code.
 
 In order to pack wasm and publish it to NPM, we need to solve: How to import different files of a package on different platforms? I use package.json fields: `exports` and `typesVersions`.
 
-## source code
-* [main.wasmer](./wasm/main.wasm): cp from [tinygo-wasmer](../../examples/tinygo-wasmer/main.wasm)
+## WASM
+
+```bash
+> cp ../../examples/wasm/tinygo.wasm ./wasm/main.wasm
+```
 
 ## Usage Examples
 

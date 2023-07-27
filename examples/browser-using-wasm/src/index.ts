@@ -1,4 +1,4 @@
-import {initialize, add} from "cross-wasm/browser"
+import {initialize, add, Keccak256} from "cross-wasm/browser"
 
 ;(async () => {
 
@@ -7,6 +7,8 @@ import {initialize, add} from "cross-wasm/browser"
   })
 
   // 223
-  const res = add(1, 222)
-  console.log(res)
+  console.log('add res', add(1, 222))
+
+  // 
+  console.log( 'Keccak256 res:', Keccak256('hello world') )
 })()

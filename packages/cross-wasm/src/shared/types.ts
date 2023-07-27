@@ -8,4 +8,5 @@ export declare function initializeFn(options: InitializeOptions): Promise<void>;
 
 export interface Service {
   add: (a: number, b: number) => number;
+  Keccak256: (data: string) => string;
 }

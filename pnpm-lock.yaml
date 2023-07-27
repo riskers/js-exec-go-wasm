@@ -114,10 +114,6 @@ importers:
         version: 1.2.2
 
   packages/cross-wasm:
-    dependencies:
-      '@wasmer/wasi':
-        specifier: ^1.2.2
-        version: 1.2.2
     devDependencies:
       tsup:
         specifier: ^6.7.0

@@ -1,14 +1,18 @@
-import { init, WASI } from "@wasmer/wasi";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import type { Service } from "../shared/types";
+import Go from './wasm_exec';
 
 let longLivedService: Promise<Service> | undefined;
 
 export const add = async (a: number, b: number) => {
   const service = await getService()
-
   return service.add(a, b)
+}
+
+export const Keccak256 = async (data: string) => {
+  const service = await getService()
+  return service.Keccak256(data)
 }
 
 const getService = (): Promise<Service> => {
@@ -23,15 +27,15 @@ const getService = (): Promise<Service> => {
   return longLivedService;
 };
 
-const instantiateWASM = async (wasmPath: string): Promise<WebAssembly.Module> => {
+const instantiateWASM = async (wasmPath: string) => {
   let response = undefined;
 
   const fetchAndInstantiateTask = async () => {
     const buf = fs.readFileSync(wasmPath);
-    const module = await WebAssembly.compile(
-      new Uint8Array(buf)
-    );
+    const go = new Go();
+    const module = await WebAssembly.instantiate(new Uint8Array(buf), go.importObject);
 
+    go.run(module.instance);
     return module;
   };
   response = await fetchAndInstantiateTask();
@@ -40,28 +44,16 @@ const instantiateWASM = async (wasmPath: string): Promise<WebAssembly.Module> =>
 };
 
 const startRunningService = async (): Promise<Service> => {
-  await init();
-
-  let wasi = new WASI({
-    env: {},
-    args: [],
-  });
-
   const wasmPath = fileURLToPath(new URL('../main.wasm', import.meta.url));
+  const wasm = await instantiateWASM(wasmPath);
 
-  const module = await instantiateWASM(wasmPath);
-  const instant = wasi.instantiate(module, {});
-
-  wasi.start();
-  wasi.getStdoutString();
-
-  // console.log(`${stdout}(exit code: ${exitCode})`);
-
-  const exports: any = instant.exports
+  const exports: any = wasm.instance.exports;
 
   const { add } = exports
+  const { Keccak256 } = (globalThis as any);
   
   return {
-    add
+    add,
+    Keccak256
   };
 };
