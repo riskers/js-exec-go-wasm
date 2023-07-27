@@ -1,0 +1,12 @@
+{
+  "name": "tinygo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wasm_exec.js",
+  "scripts": {
+    "start": "http-server -c-1 -p 9001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

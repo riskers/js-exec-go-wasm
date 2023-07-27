@@ -8,7 +8,7 @@ license that can be found in the LICENSE file.
 
 <head>
 	<meta charset="utf-8">
-	<title>TinyGo + wasmer</title>
+	<title>TinyGo WASM</title>
 </head>
 
 <body>
@@ -17,11 +17,10 @@ license that can be found in the LICENSE file.
 	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
 	(see https://caniuse.com/#feat=textencoder)
 	-->
-	<script src="wasm_exec.js"></script>
+	<!-- cp $(tinygo env TINYGOROOT)/targets/wasm_exec.js ./tinygo_wasm_exec.js -->
+	<script src="tinygo_wasm_exec.js"></script>
 
-	<script type="module">
-	import { init } from 'https://cdn.jsdelivr.net/npm/@wasmer/wasi@1.2.2/+esm'
-
+	<script>
 	if (!WebAssembly.instantiateStreaming) { // polyfill
 		WebAssembly.instantiateStreaming = async (resp, importObject) => {
 			const source = await (await resp).arrayBuffer();
@@ -30,19 +29,16 @@ license that can be found in the LICENSE file.
 	}
 
 	;(async () => {
-		  await init();
-
 			const go = new Go()
 			const moduleBytes = fetch("./main.wasm");
 			const module = await WebAssembly.instantiateStreaming(moduleBytes, go.importObject);
 
-			// https://i.imgur.com/io5tJVO.png
-			console.log(module.instance.exports);
-			// 223
-			console.log(module.instance.exports.add(1, 222))
+			go.run(module.instance)
+
+			console.log( 'add res: ', module.instance.exports.add(1, 2) )
+			console.log( 'Keccak256 res:', window['Keccak256']('hello world') )
 	})()
 	</script>
 
 </body>
-
 </html>
