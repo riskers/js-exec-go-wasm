@@ -9,7 +9,7 @@
 > cp ../wasm/tinygo.wasm .
 ```
 
-* [main.wasm](./main.wasm): WASM file compiled by tinygo.
+> [tinygo.wasm](./tinygo.wasm): WASM file compiled by tinygo.
 
 ## Run on browser
 
@@ -19,7 +19,7 @@
 > npm run start
 ```
 
-* [wasm_exec.html](./index.html): browser using WASM template, run!
+* [index.html](./index.html): browser using WASM template, run!
 * [tinygo_wasm_exec.js](./tinygo_wasm_exec.js): core code WASM run on Node.js and browser. `cp $(tinygo env TINYGOROOT)/targets/wasm_exec.js ./tinygo_wasm_exec.js`
 
 ## Run on Node.js
@@ -30,7 +30,7 @@
 
 ![](https://i.imgur.com/Vs1BDPk.png)
 
-* [using_wasmer.mjs](./using_wasmer.mjs): Nodejs using WASM template
+* [index.mjs](./index.mjs): Nodejs using WASM template
 * [tinygo_wasm_exec.js](./tinygo_wasm_exec.js): same as above
 
 ## QA

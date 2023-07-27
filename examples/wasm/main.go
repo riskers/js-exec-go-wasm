@@ -7,10 +7,10 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// https://tinygo.org/docs/guides/webassembly/wasi/
-
 // This function is exported to JavaScript, so can be called using
 // exports.add() in JavaScript.
+//
+// only support in TinyGo: https://tinygo.org/docs/guides/webassembly/wasi/
 //
 //export add
 func add(a, b uint32) uint32 {

@@ -1,8 +1,8 @@
 {
-  "name": "tinygo",
+  "name": "golang",
   "version": "1.0.0",
   "description": "",
-  "main": "",
+  "main": "index.js",
   "scripts": {
     "start": "http-server -c-1 -p 9001"
   },
