@@ -3,7 +3,7 @@ import fs from "fs";
 import './tinygo_wasm_exec.js'
 
 const go = new Go();
-const buf = fs.readFileSync('./main.wasm');
+const buf = fs.readFileSync('./tinygo.wasm');
 const wasm = await WebAssembly.instantiate(new Uint8Array(buf), go.importObject);
 go.run(wasm.instance)
 

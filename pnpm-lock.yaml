@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      http-server:
+        specifier: ^14.1.1
+        version: 14.1.1
 
   examples/browser-using-wasm:
     dependencies:
@@ -47,6 +51,12 @@ importers:
       webpack-cli:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.88.1)
+
+  examples/deprecated-golang:
+    dependencies:
+      shelljs:
+        specifier: ^0.8.5
+        version: 0.8.5
 
   examples/golang:
     dependencies:

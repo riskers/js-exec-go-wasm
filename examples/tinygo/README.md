@@ -3,16 +3,13 @@
 [tinygo](https://tinygo.org/) can reduce the wasm size!
 > TinyGo command: https://tinygo.org/docs/guides/webassembly/
 
-## Build WASM
+## WASM
 
 ```bash
-> tinygo build -o main.wasm -target wasm main.go
+> cp ../wasm/tinygo.wasm .
 ```
 
-* [main.go](./main.go): Golang source code
-* [main.wasm](./main.wasm): WASM file compiled by [tinygo](https://tinygo.org/).
-
-> wasm file that tinygo compile size is `390k`, however Golang compile [wasm](../golang/main.wasm) is `3.9M`!
+* [main.wasm](./main.wasm): WASM file compiled by tinygo.
 
 ## Run on browser
 
