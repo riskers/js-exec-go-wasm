@@ -21,3 +21,4 @@ In order to pack wasm and publish it to NPM, we need to solve: How to import dif
 ## Thanks
 
 * [@astrojs/compiler](https://github.com/withastro/compiler/tree/main): Give me ideas about how code structure.
+* [wasm-pack](https://github.com/rustwasm/wasm-pack)
