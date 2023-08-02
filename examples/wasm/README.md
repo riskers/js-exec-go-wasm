@@ -5,7 +5,7 @@
 > GOOS=js GOARCH=wasm go build -o go.wasm
 
 # TinyGo build wasm
-> tinygo build -no-debug -o main.wasm -target=wasm main.go
+> tinygo build -no-debug -o tinygo.wasm -target=wasm main.go
 ```
 
 ## Go vs TinyGo
