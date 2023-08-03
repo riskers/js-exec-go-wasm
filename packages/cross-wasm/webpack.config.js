@@ -1,12 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import WasmPackPlugin from '@wasm-tool/wasm-pack-plugin';
-// const CopyPlugin = require("copy-webpack-plugin");
-// const { fileURLToPath } = require('url');
 
 module.exports = [
+
+  // Browser
   {
     entry: './src/browser/index.js',
     output: {
@@ -15,33 +13,22 @@ module.exports = [
       library: {
         type: 'commonjs'
       },
-      // publicPath: 'https://zxx.com',
       wasmLoading: 'fetch',
       enabledWasmLoadingTypes: ['fetch'],
     },
     target: 'web',
     experiments: { 
       asyncWebAssembly: true,
-      // syncWebAssembly: true
     },
     module: {
       rules: [
-          // {
-          //   test: /\.wasm$/,
-          //   type: "asset/inline",
-          // },
           {
             test: /\.wasm$/,
-            type: 'javascript/auto',
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
+            type: "asset/resource",
+            generator: {
+              filename: '[name][ext]',
             }
-          }
-          // {
-          //   test: /\.wasm$/,
-          //   type: "asset/resource",
-          // },
+          },
       ],
     },
     mode: 'development',
@@ -51,7 +38,9 @@ module.exports = [
         // buffer: require.resolve("buffer"),
         // crypto: require.resolve('crypto-browserify'),
         // process: require.resolve('process/browser'),
+        crypto: false,
         fs: false,
+        util: false,
         // util: require.resolve('util/'),
         // stream: require.resolve('stream-browserify'),
         // path: require.resolve('path-browserify'),
@@ -60,16 +49,12 @@ module.exports = [
     plugins: [
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
-        // process: "process/browser",
       }),
       new CleanWebpackPlugin()
-      // new CopyPlugin({
-      //   patterns: [
-      //     { from: "source", to: "dist" },
-      //   ],
-      // }),
     ]
   },
+
+  // Node.js
   {
     entry: './src/node/index.js',
     output: {
@@ -78,31 +63,20 @@ module.exports = [
       library: {
         type: 'commonjs'
       },
-      // enabledWasmLoadingTypes: ['fetch'],
     },
     target: 'node',
     experiments: { 
       asyncWebAssembly: true,
-      // syncWebAssembly: true
     },
     module: {
       rules: [
-          // {
-          //   test: /\.wasm$/,
-          //   type: "asset/inline",
-          // },
           {
             test: /\.wasm$/,
-            type: 'javascript/auto',
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
+            type: "asset/resource",
+            generator: {
+              filename: '[name][ext]',
             }
-          }
-          // {
-          //   test: /\.wasm$/,
-          //   type: "asset/resource",
-          // },
+          },
       ],
     },
     mode: 'development',

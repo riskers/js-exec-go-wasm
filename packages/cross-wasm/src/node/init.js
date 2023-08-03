@@ -1,9 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import '../wasm/main.wasm';
+import * as wasm from '../wasm/cross-wasm.wasm';
 import Go from './wasm_exec';
-
-let longLivedService
+let longLivedService;
 
 export const getService = () => {
   if (!longLivedService) {
@@ -34,7 +33,8 @@ const instantiateWASM = async (wasmPath) => {
 };
 
 const startRunningService = async () => {
-  const wasmPath = path.resolve(__dirname, './main.wasm');
+  // `wasm.default` is `main.wasm`
+  const wasmPath = path.resolve(__dirname, wasm.default);
   const module = await instantiateWASM(wasmPath);
   const exports = module.instance.exports;
 

@@ -1,4 +1,4 @@
-import { add, Keccak256 } from "cross-wasm/node";
+import { add, Keccak256 } from "cross-wasm";
 
 (async () => {
   // 223

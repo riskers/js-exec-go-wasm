@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "keywords": [
     "wasm",
+    "cross-wasm",
     "cross-platform",
     "tinygo"
   ],
@@ -15,6 +16,15 @@
   "module": "./dist/browser/index.js",
   "main": "./dist/node/index.js",
   "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/browser/index.js",
+      "main": "./dist/node/index.js",
+      "default": "./dist/node/index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./cross-wasm.wasm": "./dist/cross-wasm.wasm"
+  },
   "files": [
     "dist",
     "types"
@@ -26,7 +36,6 @@
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
-    "file-loader": "^6.2.0",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"

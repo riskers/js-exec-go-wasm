@@ -1,16 +1,11 @@
-import * as wasm from '../wasm/main.wasm';
+import * as wasm from '../wasm/cross-wasm.wasm';
 import Go from './wasm_exec.js';
 
 export const initialize = async (options) => {
   let wasmURL = options.wasmURL;
   // if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
   if (!initializePromise) {
-    // const input = wasmURL || new URL('main.wasm', import.meta.url)
     const input = wasmURL || wasm.default
-    // input = new URL('main.wasm', import.meta.url);
-    // const input = wasmURL || './main.wasm'
-    // console.log('import.meta.url', import.meta.url, new URL('main.wasm', import.meta.url));
-    console.log('input', input)
     initializePromise = startRunningService(input).catch((err) => {
       // Let the caller try again if this fails.
       initializePromise = void 0;
@@ -51,7 +46,6 @@ export const ensureServiceIsRunning = () => {
 };
 
 const startRunningService = async (wasmURL) => {
-  console.log('start...')
   const module = await instantiateWASM(wasmURL);
   const exports = module.instance.exports;
 

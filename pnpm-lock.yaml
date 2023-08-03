@@ -123,9 +123,6 @@ importers:
       copy-webpack-plugin:
         specifier: ^11.0.0
         version: 11.0.0(webpack@5.88.1)
-      file-loader:
-        specifier: ^6.2.0
-        version: 6.2.0(webpack@5.88.1)
       typescript:
         specifier: ^5.1.6
         version: 5.1.6

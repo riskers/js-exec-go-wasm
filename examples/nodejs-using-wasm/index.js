@@ -1,7 +1,6 @@
-import {add, Keccak256} from "cross-wasm"
+const { add, Keccak256 } = require("cross-wasm");
 
-;(async () => {
-
+(async () => {
   // 223
   console.log('add res', await add(1, 222))
 

@@ -1,19 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    wasmLoading: 'fetch',
   },
   mode: "development",
-  // target: 'webworker',
-  
-  // must provide because wasmer
-  externals: {
-    'wasmer_wasi_js_bg.wasm': true
-  },
   module: {
     rules: [
       {
@@ -23,8 +20,12 @@ module.exports = {
       },
     ]
   },
+  experiments: { 
+    asyncWebAssembly: true,
+    // syncWebAssembly: true
+  },
   resolve: {
-    extensions: [ '.ts', '.js'],
+    extensions: [ '.js'],
     fallback: {
       buffer: require.resolve("buffer"),
       crypto: require.resolve('crypto-browserify'),
@@ -40,5 +41,14 @@ module.exports = {
       Buffer: ['buffer', 'Buffer'],
       // process: "process/browser",
     }),
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "node_modules/cross-wasm/dist/browser/cross-wasm.wasm",
+          to: "./",
+        },
+      ],
+    })
   ]
 };
