@@ -10,7 +10,7 @@ In order to pack wasm and publish it to NPM, we need to solve: How to import dif
 ## WASM
 
 ```bash
-> cp ../../examples/wasm/tinygo.wasm ./wasm/main.wasm
+> cp ../../examples/wasm/tinygo.wasm ./src/wasm/main.wasm
 ```
 
 ## Usage Examples

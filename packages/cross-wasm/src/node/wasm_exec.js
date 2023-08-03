@@ -133,8 +133,8 @@ const encoder = new TextEncoder("utf-8");
 const decoder = new TextDecoder("utf-8");
 var logLine = [];
 
-export default class Go {
-	public importObject;
+module.exports = class Go {
+	importObject;
 	constructor() {
 		this._callbackTimeouts = new Map();
 		this._nextCallbackTimeoutID = 1;

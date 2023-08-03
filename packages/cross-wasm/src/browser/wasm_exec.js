@@ -134,7 +134,7 @@ const decoder = new TextDecoder("utf-8");
 var logLine = [];
 
 export default class Go {
-	public importObject;
+	importObject;
 	constructor() {
 		this._callbackTimeouts = new Map();
 		this._nextCallbackTimeoutID = 1;

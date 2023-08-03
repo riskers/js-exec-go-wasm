@@ -10,10 +10,11 @@
   "license": "MIT",
   "description": "Universal wasm for Node and Browsers. Cross platform(browser and nodejs) exec wasm file",
   "scripts": {
-    "build": "tsup"
+    "build": "webpack"
   },
   "module": "./dist/browser/index.js",
   "main": "./dist/node/index.js",
+  "types": "./types/index.d.ts",
   "files": [
     "dist",
     "types"
@@ -22,34 +23,12 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/browser/index.d.ts",
-      "default": "./dist/browser/index.js"
-    },
-    "./browser": {
-      "default": "./dist/browser/index.js"
-    },
-    "./node": {
-      "default": "./dist/node/index.js"
-    },
-    "./main.wasm": "./dist/main.wasm"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/browser/index.d.ts"
-      ],
-      "browser": [
-        "./dist/browser/index.d.ts"
-      ],
-      "node": [
-        "./dist/node/index.d.js"
-      ]
-    }
-  },
   "devDependencies": {
-    "tsup": "^6.7.0",
-    "typescript": "^5.1.6"
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "file-loader": "^6.2.0",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   }
 }
