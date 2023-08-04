@@ -37,6 +37,9 @@ Need [Webpack Configuration](../../examples/browser-using-wasm/webpack.config.js
 
 > [Code](../../examples/browser-using-wasm/README.md)
 
+* [ESM](../../examples/browser-using-wasm/src/index.ts)
+* [UMD](../../examples/browser-using-wasm/html/umd.html)
+
 ### Nodejs
 
 > [Code](../../examples/nodejs-using-wasm/README.md)
