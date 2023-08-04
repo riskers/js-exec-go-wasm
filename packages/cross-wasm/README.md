@@ -18,6 +18,7 @@ As template, we need to modify these files:
 * [node/index.js](./src/node/index.js):
   * the method of `exports` and `globalThis` export in `startRunningService` function.
   * wasm function such as `add` or `Keccak256`
+* [package.json](./package.json): `"./cross-wasm.wasm"` field in `exports`
 
 ## WASM
 
