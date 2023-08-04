@@ -1,11 +1,10 @@
+import { startRunningService } from '.';
 import * as wasm from '../wasm/cross-wasm.wasm';
 import Go from './wasm_exec.js';
 
-export const initialize = async (options) => {
-  let wasmURL = options.wasmURL;
-  // if (!wasmURL) throw new Error('Must provide the "wasmURL" option');
+export const initialize = async () => {
   if (!initializePromise) {
-    const input = wasmURL || wasm.default
+    const input = wasm.default
     initializePromise = startRunningService(input).catch((err) => {
       // Let the caller try again if this fails.
       initializePromise = void 0;
@@ -16,7 +15,7 @@ export const initialize = async (options) => {
   longLivedService = longLivedService || (await initializePromise);
 };
 
-const instantiateWASM = async (wasmURL) => {
+export const instantiateWASM = async (wasmURL) => {
   let module = undefined;
   const go = new Go();
 
@@ -43,17 +42,4 @@ export const ensureServiceIsRunning = () => {
   if (!initializePromise) throw new Error('You need to call "initialize" before calling this');
   if (!longLivedService) throw new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this');
   return longLivedService;
-};
-
-const startRunningService = async (wasmURL) => {
-  const module = await instantiateWASM(wasmURL);
-  const exports = module.instance.exports;
-
-  const { add } = exports;
-  const { Keccak256 } = globalThis
-
-  return {
-    add,
-    Keccak256
-  }
 };

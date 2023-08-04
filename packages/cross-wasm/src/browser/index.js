@@ -1,15 +1,29 @@
-import {ensureServiceIsRunning, initialize} from './init';
+import {ensureServiceIsRunning, initialize, instantiateWASM} from './init';
 
+// 1. modify method of `exports` and `globalThis` export.
+export const startRunningService = async (wasmURL) => {
+  const module = await instantiateWASM(wasmURL);
+  const exports = module.instance.exports;
+
+  // `exports` is a map to `//export` way of TinyGo way.
+  const { add } = exports;
+
+  // `globalThis` is a map to complex way of `syscall/js` way.
+  const { Keccak256 } = globalThis
+
+  return {
+    add,
+    Keccak256
+  }
+};
+
+// 2. wasm export function:
 export const add = async (a, b) => {
-  await initialize({
-    wasmURL: ''
-  })
+  await initialize()
   return ensureServiceIsRunning().add(a, b)
 }
 
 export const Keccak256 = async (data) => {
-  await initialize({
-    wasmURL: ''
-  })
+  await initialize()
   return ensureServiceIsRunning().Keccak256(data)
 }

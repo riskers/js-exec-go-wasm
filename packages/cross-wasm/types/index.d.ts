@@ -1,3 +1,3 @@
-export function initialize({wasmURL: string}): Promise<void>;
+export function initialize(): Promise<void>;
 
 export * from './expose'

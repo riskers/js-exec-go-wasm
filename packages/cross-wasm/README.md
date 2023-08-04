@@ -9,6 +9,16 @@ In order to pack wasm and publish it to NPM, we need to solve: How to import dif
 
 This repo is my solution called [cross-wasm](https://github.com/riskers/js-exec-go-wasm/blob/main/packages/cross-wasm/README.md)
 
+As template, we need to modify these files:
+* [wasm](./src/wasm/cross-wasm.wasm): Your wasm file
+* [expose types](./types/expose.d.ts): Depends on your wasm function name and type parameters
+* [browser/index.js](./src/browser/index.js):
+  * the method of `exports` and `globalThis` export in `startRunningService` function.
+  * wasm function such as `add` or `Keccak256`
+* [node/index.js](./src/node/index.js):
+  * the method of `exports` and `globalThis` export in `startRunningService` function.
+  * wasm function such as `add` or `Keccak256`
+
 ## WASM
 
 ```bash
@@ -35,7 +45,7 @@ import {add, Keccak256} from "cross-wasm"
 })()
 ```
 
-Need [Webpack Configuration](../../cross-examples/browser-using-wasm/webpack.config.js)
+Notice: Need [Webpack Copy plugin](https://github.com/riskers/js-exec-go-wasm/blob/main/cross-examples/browser-using-wasm/webpack.config.js#L45-L51)!
 
 > [Code](../../cross-examples/browser-using-wasm/README.md)
 
