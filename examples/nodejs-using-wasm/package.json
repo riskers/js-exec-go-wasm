@@ -6,7 +6,8 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "node index.js",
+    "start:ts": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
