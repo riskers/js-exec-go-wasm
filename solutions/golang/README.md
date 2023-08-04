@@ -2,7 +2,7 @@
 ## WASM
 
 ```bash
-> cp ../wasm/go.wasm .
+> cp ../../wasm/go.wasm .
 ```
 
 > [go.wasm](./go.wasm): WASM file compiled by go.
@@ -21,7 +21,7 @@
 ## Run on Node.js
 
 ```bash
-> node using_wasmer.mjs
+> node index.mjs
 ```
 
 ![](https://i.imgur.com/mLm3Z5I.png)

@@ -9,15 +9,15 @@ Nodejs execute WASM that Golang compiled.
 * Go Version: `go1.20.6 darwin/arm64`
 * TinyGo Version: `0.28.1 darwin/amd64 (using go version go1.20.6 and LLVM version 15.0.0)`
 * Nodejs Version: `v16.15.1`
-* wasm source [code](./examples/wasm/README.md)
+* wasm [source code](./wasm/README.md)
 
 ## Official Golang solution
 
-* [Golang](./examples/golang/README.md)
+* [Golang](./solutions/golang/README.md)
 
 ## TinyGo solution
 
-* [tinygo](./examples/tinygo/README.md)
+* [tinygo](./solutions/tinygo/README.md)
 
 ## Pack WASM
 

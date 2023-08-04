@@ -3,7 +3,7 @@ Universal wasm for Node and Browsers.
 
 Can we use same wasm file both Nodejs and browser?
 
-Here I continue to explain with [tinygo solution](../../examples/tinygo/README.md) as the source code.
+Here I continue to explain with [tinygo solution](../../solutions/tinygo/README.md) as the source code.
 
 In order to pack wasm and publish it to NPM, we need to solve: How to import different files of a package on different platforms?
 
@@ -12,7 +12,7 @@ This repo is my solution called [cross-wasm](https://github.com/riskers/js-exec-
 ## WASM
 
 ```bash
-> cp ../../examples/wasm/tinygo.wasm ./src/wasm/cross-wasm.wasm
+> cp ../../wasm/tinygo.wasm ./src/wasm/cross-wasm.wasm
 ```
 
 ## Usage Examples
@@ -35,9 +35,9 @@ import {add, Keccak256} from "cross-wasm"
 })()
 ```
 
-Need [Webpack Configuration](../../examples/browser-using-wasm/webpack.config.js)
+Need [Webpack Configuration](../../cross-examples/browser-using-wasm/webpack.config.js)
 
-> [Code](../../examples/browser-using-wasm/README.md)
+> [Code](../../cross-examples/browser-using-wasm/README.md)
 
 #### UMD
 
@@ -54,7 +54,7 @@ Need [Webpack Configuration](../../examples/browser-using-wasm/webpack.config.js
 </script>
 ```
 
-> [Code](../../examples/browser-using-wasm/html/umd.html)
+> [Code](../../cross-examples/browser-using-wasm/html/umd.html)
 
 ### Nodejs
 
@@ -70,7 +70,7 @@ const { add, Keccak256 } = require("cross-wasm");
 })()
 ```
 
-> [Code](../../examples/nodejs-using-wasm/README.md)
+> [Code](../../cross-examples/nodejs-using-wasm/README.md)
 
 ## Thanks
 

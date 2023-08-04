@@ -6,7 +6,7 @@
 ## WASM
 
 ```bash
-> cp ../wasm/tinygo.wasm .
+> cp ../../wasm/tinygo.wasm .
 ```
 
 > [tinygo.wasm](./tinygo.wasm): WASM file compiled by tinygo.
@@ -25,7 +25,7 @@
 ## Run on Node.js
 
 ```bash
-> node using_wasmer.mjs
+> node index.mjs
 ```
 
 ![](https://i.imgur.com/Vs1BDPk.png)
