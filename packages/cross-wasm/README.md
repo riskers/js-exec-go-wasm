@@ -27,8 +27,6 @@ As template, we need to modify these files:
 
 ## Usage Examples
 
-Browsers and Nodejs can be used is same way:
-
 ### Browsers
 
 #### ESM
