@@ -23,7 +23,7 @@
       "default": "./dist/node/index.js",
       "types": "./types/index.d.ts"
     },
-    "./cross-wasm.wasm": "./dist/cross-wasm.wasm"
+    "./cross-wasm.wasm": "./dist/browser/cross-wasm.wasm"
   },
   "files": [
     "dist",
