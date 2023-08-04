@@ -1,5 +1,7 @@
 import {add, Keccak256} from "cross-wasm"
 
+console.log('ESM')
+
 ;(async () => {
 
   // 223

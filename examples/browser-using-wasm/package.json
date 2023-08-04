@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "http-server -c-1 -p 9000",
+    "start": "http-server -c-1 -p 9000 -o ./html",
     "build": "webpack"
   },
   "keywords": [],

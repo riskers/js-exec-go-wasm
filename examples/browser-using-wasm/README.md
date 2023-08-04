@@ -1,5 +1,7 @@
 # Browser using wasm
 
+Support UMD and ESM.
+
 ## build
 
 ```bash

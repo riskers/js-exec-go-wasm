@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>UMD</title>
+  <style>
+		html {
+			font-family: sans-serif;
+			background-color: #000;
+		}
+	</style>
+</head>
+
+<body>
+	<!--
+	Add the following polyfill for Microsoft Edge 17/18 support:
+	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
+	(see https://caniuse.com/#feat=textencoder)
+	-->
+
+  <script src="../node_modules/cross-wasm/dist/umd/index.js"></script>
+  <script>
+    // WASM exports as `CrowssWasm` UMD module.
+    console.log('UMD', CrossWasm)
+
+    ;(async () => {
+      // 223
+      console.log('add res', await CrossWasm.add(1, 222))
+
+      // 47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad
+      console.log( 'Keccak256 res:', await CrossWasm.Keccak256('hello world') )
+    })()
+  </script>
+
+</body>
+</html>

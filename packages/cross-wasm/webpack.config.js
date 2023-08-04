@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = [
 
-  // Browser
+  // Browser ESM
   {
     entry: './src/browser/index.js',
     output: {
@@ -12,6 +12,57 @@ module.exports = [
       filename: 'index.js',
       library: {
         type: 'commonjs'
+      },
+      wasmLoading: 'fetch',
+      enabledWasmLoadingTypes: ['fetch'],
+    },
+    target: 'web',
+    experiments: { 
+      asyncWebAssembly: true,
+    },
+    module: {
+      rules: [
+          {
+            test: /\.wasm$/,
+            type: "asset/resource",
+            generator: {
+              filename: '[name][ext]',
+            }
+          },
+      ],
+    },
+    mode: 'development',
+    resolve: {
+      extensions: [ '.js'],
+      fallback: {
+        // buffer: require.resolve("buffer"),
+        // crypto: require.resolve('crypto-browserify'),
+        // process: require.resolve('process/browser'),
+        crypto: false,
+        fs: false,
+        util: false,
+        // util: require.resolve('util/'),
+        // stream: require.resolve('stream-browserify'),
+        // path: require.resolve('path-browserify'),
+      }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
+      new CleanWebpackPlugin()
+    ]
+  },
+
+  // Browser UMD
+  {
+    entry: './src/browser/index.js',
+    output: {
+      path: path.resolve(__dirname, 'dist/umd'),
+      filename: 'index.js',
+      library: {
+        name: 'CrossWasm',
+        type: 'umd'
       },
       wasmLoading: 'fetch',
       enabledWasmLoadingTypes: ['fetch'],
