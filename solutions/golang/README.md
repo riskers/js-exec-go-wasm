@@ -16,7 +16,7 @@
 ```
 
 * [index.html](./index.html): browser using WASM template, run!
-* [go_wasm_exec.js](./go_wasm_exec.js): core code WASM run browser.
+* [go_wasm_exec.js](./go_wasm_exec.js): core code WASM run browser. `cp $(go env GOROOT)/misc/wasm/wasm_exec.js go_wasm_exec.js`
 
 ## Run on Node.js
 
