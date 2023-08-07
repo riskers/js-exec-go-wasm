@@ -1,8 +1,9 @@
+import path from 'path';
 import * as wasm from '../wasm/cross-wasm.wasm';
-import {getService, initialize, instantiateWASM} from './init';
+import { getService,instantiateWASM } from './init';
 
 // 1. modify method of `exports` and `globalThis` export.
-const startRunningService = async () => {
+export const startRunningService = async () => {
   // `wasm.default` is `cross-wasm.wasm`
   const wasmPath = path.resolve(__dirname, wasm.default);
   const module = await instantiateWASM(wasmPath);

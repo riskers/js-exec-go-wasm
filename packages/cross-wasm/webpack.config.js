@@ -8,7 +8,7 @@ module.exports = [
   {
     entry: './src/browser/index.js',
     output: {
-      path: path.resolve(__dirname, 'dist/browser'),
+      path: path.resolve(__dirname, 'dist/browser/esm'),
       filename: 'index.js',
       library: {
         type: 'commonjs'
@@ -58,7 +58,7 @@ module.exports = [
   {
     entry: './src/browser/index.js',
     output: {
-      path: path.resolve(__dirname, 'dist/umd'),
+      path: path.resolve(__dirname, 'dist/browser/umd'),
       filename: 'index.js',
       library: {
         name: 'CrossWasm',

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import path from "node:path";
+import { startRunningService } from ".";
 import Go from './wasm_exec';
 let longLivedService;
 

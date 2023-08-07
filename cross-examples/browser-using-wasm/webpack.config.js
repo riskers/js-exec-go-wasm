@@ -45,7 +45,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/cross-wasm/dist/browser/cross-wasm.wasm",
+          from: "node_modules/cross-wasm/dist/browser/esm/cross-wasm.wasm",
           to: "./",
         },
       ],
