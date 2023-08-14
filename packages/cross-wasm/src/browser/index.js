@@ -5,6 +5,7 @@ export const getWasmPath = () => window.__PUBLIC_CROSS_WASM_PATH__;
 // 1. modify method of `exports` and `globalThis` export.
 export const startRunningService = async () => {
   const WASM_PATH = getWasmPath();
+  if (!WASM_PATH) throw new Error('WASM_PATH is not defined, please set window.__PUBLIC_CROSS_WASM_PATH__ value');
   const module = await instantiateWASM(WASM_PATH);
   const exports = module.instance.exports;
 
