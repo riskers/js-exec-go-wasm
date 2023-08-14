@@ -1,6 +1,6 @@
 import {ensureServiceIsRunning, initialize, instantiateWASM} from './init';
 
-export const getWasmPath = () => window.__PUBLIC_CROSS_WASM_PATH__;
+export const getWasmPath = () => globalThis.__PUBLIC_CROSS_WASM_PATH__;
 
 // 1. modify method of `exports` and `globalThis` export.
 export const startRunningService = async () => {
