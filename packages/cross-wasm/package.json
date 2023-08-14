@@ -23,7 +23,7 @@
       "default": "./dist/node/index.js",
       "types": "./types/index.d.ts"
     },
-    "./cross-wasm.wasm": "./dist/browser/esm/cross-wasm.wasm"
+    "./cross-wasm.wasm": "./dist/node/cross-wasm.wasm"
   },
   "files": [
     "dist",
@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^11.0.0",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"

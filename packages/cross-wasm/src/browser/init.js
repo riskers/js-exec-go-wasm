@@ -1,11 +1,9 @@
 import { startRunningService } from '.';
-import * as wasm from '../wasm/cross-wasm.wasm';
 import Go from './wasm_exec.js';
 
 export const initialize = async () => {
   if (!initializePromise) {
-    const input = wasm.default
-    initializePromise = startRunningService(input).catch((err) => {
+    initializePromise = startRunningService().catch((err) => {
       // Let the caller try again if this fails.
       initializePromise = void 0;
       // But still, throw the error back up the caller.

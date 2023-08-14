@@ -34,6 +34,10 @@ As template, we need to modify these files:
 
 ```js
 import {add, Keccak256} from "cross-wasm"
+
+// set wasm path
+(window as any).__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
+
 ;(async () => {
 
   // 223
@@ -44,8 +48,6 @@ import {add, Keccak256} from "cross-wasm"
 })()
 ```
 
-Notice: Need [Webpack Copy plugin](https://github.com/riskers/js-exec-go-wasm/blob/main/cross-examples/browser-using-wasm/webpack.config.js#L45-L51)!
-
 > [Code](../../cross-examples/browser-using-wasm/README.md)
 
 #### UMD
@@ -53,6 +55,9 @@ Notice: Need [Webpack Copy plugin](https://github.com/riskers/js-exec-go-wasm/bl
 ```html
 <script src="../node_modules/cross-wasm/dist/umd/index.js"></script>
 <script>
+  // set wasm path
+  window.__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
+
   ;(async () => {
     // 223
     console.log('add res', await CrossWasm.add(1, 222))

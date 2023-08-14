@@ -1,5 +1,7 @@
 import {add, Keccak256} from "cross-wasm"
 
+(window as any).__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
+
 console.log('ESM')
 
 ;(async () => {

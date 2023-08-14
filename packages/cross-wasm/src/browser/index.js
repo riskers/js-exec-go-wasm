@@ -1,8 +1,11 @@
 import {ensureServiceIsRunning, initialize, instantiateWASM} from './init';
 
+export const getWasmPath = () => window.__PUBLIC_CROSS_WASM_PATH__;
+
 // 1. modify method of `exports` and `globalThis` export.
-export const startRunningService = async (wasmURL) => {
-  const module = await instantiateWASM(wasmURL);
+export const startRunningService = async () => {
+  const WASM_PATH = getWasmPath();
+  const module = await instantiateWASM(WASM_PATH);
   const exports = module.instance.exports;
 
   // `exports` is a map to `//export` way of TinyGo way.

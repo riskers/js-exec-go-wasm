@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: './src/index.ts',
@@ -42,13 +41,5 @@ module.exports = {
       // process: "process/browser",
     }),
     new CleanWebpackPlugin(),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: "node_modules/cross-wasm/dist/browser/esm/cross-wasm.wasm",
-          to: "./",
-        },
-      ],
-    })
   ]
 };

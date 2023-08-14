@@ -22,7 +22,9 @@
   <script src="../node_modules/cross-wasm/dist/browser/umd/index.js"></script>
   <script>
     // WASM exports as `CrowssWasm` UMD module.
-    console.log('UMD', CrossWasm)
+    console.log('UMD', CrossWasm);
+
+    window.__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
 
     ;(async () => {
       // 223
