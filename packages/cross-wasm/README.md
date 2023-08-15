@@ -86,6 +86,49 @@ const { add, Keccak256 } = require("cross-wasm");
 
 > [Code](../../cross-examples/nodejs-using-wasm/README.md)
 
+### Universal JavaScript
+
+You can see, `cross-wasm` supply both Nodejs and Browser functionality but two entry points usage are different.
+
+How to use cross-wasm both on Nodejs and Browser regardless of the environment?
+
+You can reference this code:
+
+```js
+export class crossWasmInit {  
+  // 1. init wasm 
+  // if using on Nodejs , not set wasmURL
+  // if using on browser, set wasmURL
+  constructor(wasmURL?: string) {
+    if (wasmURL) {
+      globalThis.__PUBLIC_CROSS_WASM_PATH__ = wasmURL;
+    }
+  }
+
+  // 2. function name map to wasm function
+  function async add(a, b) {
+    return await add(a, b);
+  }
+
+  function async Keccak256(data) {
+    return await Keccak256(data);
+  }
+}
+
+// 3. usage
+const wasm = new crossWasmInit("wasm CDN URL");
+;(async () => {
+  // 223
+  console.log('add res', await add(1, 222))
+
+  // 47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad
+  console.log( 'Keccak256 res:', await Keccak256('hello world') )
+})()
+```
+
+> NOTICE: This method is not usually used because you need to decide whether to use Nodejs or Browser. Unless you want to develop a cross library.
+
+
 ## Thanks
 
 * [@astrojs/compiler](https://github.com/withastro/compiler/tree/main): inspired me how code structure.
