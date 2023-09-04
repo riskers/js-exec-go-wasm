@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import Go from './go_wasm_exec_node.mjs'
+import Go from './go_wasm_exec_node.js'
 
 const go = new Go();
 const buf = fs.readFileSync('./go.wasm');

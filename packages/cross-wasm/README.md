@@ -26,6 +26,12 @@ As template, we need to modify these files:
 > cp ../../wasm/tinygo.wasm ./src/wasm/cross-wasm.wasm
 ```
 
+## Build NPM
+
+```bash
+> npm run build
+```
+
 ## Usage Examples
 
 ### Browsers

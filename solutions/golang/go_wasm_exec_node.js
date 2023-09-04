@@ -6,58 +6,25 @@
 //
 // This file has been modified for use by Astro.
 
-import crypto from 'node:crypto';
-import fs from 'node:fs';
-import { TextDecoder, TextEncoder } from 'node:util';
+globalThis.require = require;
+globalThis.fs = require("fs");
+globalThis.TextEncoder = require("util").TextEncoder;
+globalThis.TextDecoder = require("util").TextDecoder;
 
-if (!globalThis.fs) {
-  Object.defineProperty(globalThis, 'fs', {
-    value: fs,
-  });
-}
+globalThis.performance ??= require("performance");
 
-if (!globalThis.process) {
-  Object.defineProperties(globalThis, 'process', {
-    value: process,
-  });
-}
+globalThis.crypto ??= require("crypto");
 
-if (!globalThis.crypto) {
-  Object.defineProperty(globalThis, 'crypto', {
-    value: crypto.webcrypto
-      ? crypto.webcrypto
-      : {
-          getRandomValues(b) {
-            return crypto.randomFillSync(b);
-          },
-        },
-  });
-}
+const encoder = new TextEncoder("utf-8");
+const decoder = new TextDecoder("utf-8");
 
-if (!globalThis.performance) {
-  Object.defineProperty(globalThis, 'performance', {
-    value: {
-      now() {
-        const [sec, nsec] = process.hrtime();
-        return sec * 1000 + nsec / 1000000;
-      },
-    },
-  });
-}
-// End of polyfills for common API.
-
-const encoder = new TextEncoder('utf-8');
-const decoder = new TextDecoder('utf-8');
-var logLine = [];
-
-export default class Go {
-  importObject;
+module.exports = class Go {
   constructor() {
-    this.argv = ['js'];
+    this.argv = ["js"];
     this.env = {};
     this.exit = (code) => {
       if (code !== 0) {
-        console.warn('exit code:', code);
+        console.warn("exit code:", code);
       }
     };
     this._exitPromise = new Promise((resolve) => {
@@ -70,13 +37,17 @@ export default class Go {
     const setInt64 = (addr, v) => {
       this.mem.setUint32(addr + 0, v, true);
       this.mem.setUint32(addr + 4, Math.floor(v / 4294967296), true);
-    };
+    }
+
+    const setInt32 = (addr, v) => {
+      this.mem.setUint32(addr + 0, v, true);
+    }
 
     const getInt64 = (addr) => {
       const low = this.mem.getUint32(addr + 0, true);
       const high = this.mem.getInt32(addr + 4, true);
       return low + high * 4294967296;
-    };
+    }
 
     const loadValue = (addr) => {
       const f = this.mem.getFloat64(addr, true);
@@ -89,12 +60,12 @@ export default class Go {
 
       const id = this.mem.getUint32(addr, true);
       return this._values[id];
-    };
+    }
 
     const storeValue = (addr, v) => {
-      const nanHead = 0x7ff80000;
+      const nanHead = 0x7FF80000;
 
-      if (typeof v === 'number' && v !== 0) {
+      if (typeof v === "number" && v !== 0) {
         if (isNaN(v)) {
           this.mem.setUint32(addr + 4, nanHead, true);
           this.mem.setUint32(addr, 0, true);
@@ -122,30 +93,30 @@ export default class Go {
       this._goRefCounts[id]++;
       let typeFlag = 0;
       switch (typeof v) {
-        case 'object':
+        case "object":
           if (v !== null) {
             typeFlag = 1;
           }
           break;
-        case 'string':
+        case "string":
           typeFlag = 2;
           break;
-        case 'symbol':
+        case "symbol":
           typeFlag = 3;
           break;
-        case 'function':
+        case "function":
           typeFlag = 4;
           break;
       }
       this.mem.setUint32(addr + 4, nanHead | typeFlag, true);
       this.mem.setUint32(addr, id, true);
-    };
+    }
 
     const loadSlice = (addr) => {
       const array = getInt64(addr + 0);
       const len = getInt64(addr + 8);
       return new Uint8Array(this._inst.exports.mem.buffer, array, len);
-    };
+    }
 
     const loadSliceOfValues = (addr) => {
       const array = getInt64(addr + 0);
@@ -155,24 +126,27 @@ export default class Go {
         a[i] = loadValue(array + i * 8);
       }
       return a;
-    };
+    }
 
     const loadString = (addr) => {
       const saddr = getInt64(addr + 0);
       const len = getInt64(addr + 8);
       return decoder.decode(new DataView(this._inst.exports.mem.buffer, saddr, len));
-    };
+    }
 
     const timeOrigin = Date.now() - performance.now();
     this.importObject = {
-      go: {
+      _gotest: {
+        add: (a, b) => a + b,
+      },
+      gojs: {
         // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
         // may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported
         // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
         // This changes the SP, thus we have to update the SP used by the imported function.
 
         // func wasmExit(code int32)
-        'runtime.wasmExit': (sp) => {
+        "runtime.wasmExit": (sp) => {
           sp >>>= 0;
           const code = this.mem.getInt32(sp + 8, true);
           this.exited = true;
@@ -185,7 +159,7 @@ export default class Go {
         },
 
         // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
-        'runtime.wasmWrite': (sp) => {
+        "runtime.wasmWrite": (sp) => {
           sp >>>= 0;
           const fd = getInt64(sp + 8);
           const p = getInt64(sp + 16);
@@ -194,50 +168,47 @@ export default class Go {
         },
 
         // func resetMemoryDataView()
-        'runtime.resetMemoryDataView': (sp) => {
+        "runtime.resetMemoryDataView": (sp) => {
           sp >>>= 0;
           this.mem = new DataView(this._inst.exports.mem.buffer);
         },
 
         // func nanotime1() int64
-        'runtime.nanotime1': (sp) => {
+        "runtime.nanotime1": (sp) => {
           sp >>>= 0;
           setInt64(sp + 8, (timeOrigin + performance.now()) * 1000000);
         },
 
         // func walltime() (sec int64, nsec int32)
-        'runtime.walltime': (sp) => {
+        "runtime.walltime": (sp) => {
           sp >>>= 0;
-          const msec = new Date().getTime();
+          const msec = (new Date).getTime();
           setInt64(sp + 8, msec / 1000);
           this.mem.setInt32(sp + 16, (msec % 1000) * 1000000, true);
         },
 
         // func scheduleTimeoutEvent(delay int64) int32
-        'runtime.scheduleTimeoutEvent': (sp) => {
+        "runtime.scheduleTimeoutEvent": (sp) => {
           sp >>>= 0;
           const id = this._nextCallbackTimeoutID;
           this._nextCallbackTimeoutID++;
-          this._scheduledTimeouts.set(
-            id,
-            setTimeout(
-              () => {
+          this._scheduledTimeouts.set(id, setTimeout(
+            () => {
+              this._resume();
+              while (this._scheduledTimeouts.has(id)) {
+                // for some reason Go failed to register the timeout event, log and try again
+                // (temporary workaround for https://github.com/golang/go/issues/28975)
+                console.warn("scheduleTimeoutEvent: missed timeout event");
                 this._resume();
-                while (this._scheduledTimeouts.has(id)) {
-                  // for some reason Go failed to register the timeout event, log and try again
-                  // (temporary workaround for https://github.com/golang/go/issues/28975)
-                  console.warn('scheduleTimeoutEvent: missed timeout event');
-                  this._resume();
-                }
-              },
-              getInt64(sp + 8) + 1 // setTimeout has been seen to fire up to 1 millisecond early
-            )
-          );
+              }
+            },
+            getInt64(sp + 8),
+          ));
           this.mem.setInt32(sp + 16, id, true);
         },
 
         // func clearTimeoutEvent(id int32)
-        'runtime.clearTimeoutEvent': (sp) => {
+        "runtime.clearTimeoutEvent": (sp) => {
           sp >>>= 0;
           const id = this.mem.getInt32(sp + 8, true);
           clearTimeout(this._scheduledTimeouts.get(id));
@@ -245,13 +216,13 @@ export default class Go {
         },
 
         // func getRandomData(r []byte)
-        'runtime.getRandomData': (sp) => {
+        "runtime.getRandomData": (sp) => {
           sp >>>= 0;
-          globalThis.crypto.getRandomValues(loadSlice(sp + 8));
+          crypto.getRandomValues(loadSlice(sp + 8));
         },
 
         // func finalizeRef(v ref)
-        'syscall/js.finalizeRef': (sp) => {
+        "syscall/js.finalizeRef": (sp) => {
           sp >>>= 0;
           const id = this.mem.getUint32(sp + 8, true);
           this._goRefCounts[id]--;
@@ -264,13 +235,13 @@ export default class Go {
         },
 
         // func stringVal(value string) ref
-        'syscall/js.stringVal': (sp) => {
+        "syscall/js.stringVal": (sp) => {
           sp >>>= 0;
           storeValue(sp + 24, loadString(sp + 8));
         },
 
         // func valueGet(v ref, p string) ref
-        'syscall/js.valueGet': (sp) => {
+        "syscall/js.valueGet": (sp) => {
           sp >>>= 0;
           const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
           sp = this._inst.exports.getsp() >>> 0; // see comment above
@@ -278,31 +249,31 @@ export default class Go {
         },
 
         // func valueSet(v ref, p string, x ref)
-        'syscall/js.valueSet': (sp) => {
+        "syscall/js.valueSet": (sp) => {
           sp >>>= 0;
           Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));
         },
 
         // func valueDelete(v ref, p string)
-        'syscall/js.valueDelete': (sp) => {
+        "syscall/js.valueDelete": (sp) => {
           sp >>>= 0;
           Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
         },
 
         // func valueIndex(v ref, i int) ref
-        'syscall/js.valueIndex': (sp) => {
+        "syscall/js.valueIndex": (sp) => {
           sp >>>= 0;
           storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));
         },
 
         // valueSetIndex(v ref, i int, x ref)
-        'syscall/js.valueSetIndex': (sp) => {
+        "syscall/js.valueSetIndex": (sp) => {
           sp >>>= 0;
           Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));
         },
 
         // func valueCall(v ref, m string, args []ref) (ref, bool)
-        'syscall/js.valueCall': (sp) => {
+        "syscall/js.valueCall": (sp) => {
           sp >>>= 0;
           try {
             const v = loadValue(sp + 8);
@@ -320,7 +291,7 @@ export default class Go {
         },
 
         // func valueInvoke(v ref, args []ref) (ref, bool)
-        'syscall/js.valueInvoke': (sp) => {
+        "syscall/js.valueInvoke": (sp) => {
           sp >>>= 0;
           try {
             const v = loadValue(sp + 8);
@@ -337,7 +308,7 @@ export default class Go {
         },
 
         // func valueNew(v ref, args []ref) (ref, bool)
-        'syscall/js.valueNew': (sp) => {
+        "syscall/js.valueNew": (sp) => {
           sp >>>= 0;
           try {
             const v = loadValue(sp + 8);
@@ -354,13 +325,13 @@ export default class Go {
         },
 
         // func valueLength(v ref) int
-        'syscall/js.valueLength': (sp) => {
+        "syscall/js.valueLength": (sp) => {
           sp >>>= 0;
           setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
         },
 
         // valuePrepareString(v ref) (ref, int)
-        'syscall/js.valuePrepareString': (sp) => {
+        "syscall/js.valuePrepareString": (sp) => {
           sp >>>= 0;
           const str = encoder.encode(String(loadValue(sp + 8)));
           storeValue(sp + 16, str);
@@ -368,20 +339,20 @@ export default class Go {
         },
 
         // valueLoadString(v ref, b []byte)
-        'syscall/js.valueLoadString': (sp) => {
+        "syscall/js.valueLoadString": (sp) => {
           sp >>>= 0;
           const str = loadValue(sp + 8);
           loadSlice(sp + 16).set(str);
         },
 
         // func valueInstanceOf(v ref, t ref) bool
-        'syscall/js.valueInstanceOf': (sp) => {
+        "syscall/js.valueInstanceOf": (sp) => {
           sp >>>= 0;
-          this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);
+          this.mem.setUint8(sp + 24, (loadValue(sp + 8) instanceof loadValue(sp + 16)) ? 1 : 0);
         },
 
         // func copyBytesToGo(dst []byte, src ref) (int, bool)
-        'syscall/js.copyBytesToGo': (sp) => {
+        "syscall/js.copyBytesToGo": (sp) => {
           sp >>>= 0;
           const dst = loadSlice(sp + 8);
           const src = loadValue(sp + 32);
@@ -396,7 +367,7 @@ export default class Go {
         },
 
         // func copyBytesToJS(dst ref, src []byte) (int, bool)
-        'syscall/js.copyBytesToJS': (sp) => {
+        "syscall/js.copyBytesToJS": (sp) => {
           sp >>>= 0;
           const dst = loadValue(sp + 8);
           const src = loadSlice(sp + 16);
@@ -410,21 +381,20 @@ export default class Go {
           this.mem.setUint8(sp + 48, 1);
         },
 
-        debug: (value) => {
+        "debug": (value) => {
           console.log(value);
         },
-      },
+      }
     };
   }
 
   async run(instance) {
     if (!(instance instanceof WebAssembly.Instance)) {
-      throw new Error('Go.run: WebAssembly.Instance expected');
+      throw new Error("Go.run: WebAssembly.Instance expected");
     }
     this._inst = instance;
     this.mem = new DataView(this._inst.exports.mem.buffer);
-    this._values = [
-      // JS values that Go currently has references to, indexed by reference id
+    this._values = [ // JS values that Go currently has references to, indexed by reference id
       NaN,
       0,
       null,
@@ -434,8 +404,7 @@ export default class Go {
       this,
     ];
     this._goRefCounts = new Array(this._values.length).fill(Infinity); // number of references that Go has to a JS value, indexed by reference id
-    this._ids = new Map([
-      // mapping from JS values to reference ids
+    this._ids = new Map([ // mapping from JS values to reference ids
       [0, 1],
       [null, 2],
       [true, 3],
@@ -443,7 +412,7 @@ export default class Go {
       [globalThis, 5],
       [this, 6],
     ]);
-    this._idPool = []; // unused ids that have been garbage collected
+    this._idPool = [];   // unused ids that have been garbage collected
     this.exited = false; // whether the Go program has exited
 
     // Pass command line arguments and environment variables to WebAssembly by writing them to the linear memory.
@@ -451,7 +420,7 @@ export default class Go {
 
     const strPtr = (str) => {
       const ptr = offset;
-      const bytes = encoder.encode(str + '\0');
+      const bytes = encoder.encode(str + "\0");
       new Uint8Array(this.mem.buffer, offset, bytes.length).set(bytes);
       offset += bytes.length;
       if (offset % 8 !== 0) {
@@ -481,6 +450,13 @@ export default class Go {
       offset += 8;
     });
 
+    // The linker guarantees global data starts from at least wasmMinDataAddr.
+    // Keep in sync with cmd/link/internal/ld/data.go:wasmMinDataAddr.
+    const wasmMinDataAddr = 4096 + 8192;
+    if (offset >= wasmMinDataAddr) {
+      throw new Error("total length of command line and environment variables exceeds limit");
+    }
+
     this._inst.exports.run(argc, argv);
     if (this.exited) {
       this._resolveExitPromise();
@@ -490,7 +466,7 @@ export default class Go {
 
   _resume() {
     if (this.exited) {
-      throw new Error('Go program has already exited');
+      throw new Error("Go program has already exited");
     }
     this._inst.exports.resume();
     if (this.exited) {
