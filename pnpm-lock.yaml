@@ -58,6 +58,55 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.88.1)
 
+  cross-examples/browser-using-wasm-webworker:
+    dependencies:
+      comlink:
+        specifier: ^4.4.1
+        version: 4.4.1
+      cross-wasm:
+        specifier: workspace:^
+        version: link:../../packages/cross-wasm
+    devDependencies:
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      clean-webpack-plugin:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.88.1)
+      crypto-browserify:
+        specifier: ^3.12.0
+        version: 3.12.0
+      file-loader:
+        specifier: ^6.2.0
+        version: 6.2.0(webpack@5.88.1)
+      http-server:
+        specifier: ^14.1.1
+        version: 14.1.1
+      path-browserify:
+        specifier: ^1.0.1
+        version: 1.0.1
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      stream-browserify:
+        specifier: ^3.0.0
+        version: 3.0.0
+      ts-loader:
+        specifier: ^9.4.4
+        version: 9.4.4(typescript@5.1.6)(webpack@5.88.1)
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
+      webpack:
+        specifier: ^5.88.1
+        version: 5.88.1(webpack-cli@5.1.4)
+      webpack-cli:
+        specifier: ^5.1.4
+        version: 5.1.4(webpack@5.88.1)
+
   cross-examples/nodejs-using-wasm:
     dependencies:
       cross-wasm:
@@ -620,6 +669,10 @@ packages:
   /colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
     dev: true
+
+  /comlink@4.4.1:
+    resolution: {integrity: sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==}
+    dev: false
 
   /commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}

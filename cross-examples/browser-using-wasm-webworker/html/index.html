@@ -1,0 +1,56 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>browser using wasm</title>
+	<style>
+		* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-family: sans-serif;
+        background-color: #000;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+      #root {
+        display: block;
+        font-size: 50px;
+        font-weight: bold;
+      }
+			a {
+				-webkit-background-clip: text;
+        background-clip: text;
+				color: transparent;
+				background-image: linear-gradient(89.97deg, rgb(25, 160, 95) 0.02%, rgb(13, 127, 140) 123.85%);
+			}
+	</style>
+</head>
+
+<body>
+	
+	<div id="root">
+		<li>
+			<a href="./esm.html">ESM</a>
+		</li>
+		<li>
+			<a href="./umd.html">UMD</a>
+		</li>
+	</div>
+
+</body>
+
+</html>

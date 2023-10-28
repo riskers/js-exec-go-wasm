@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>UMD</title>
+  <style>
+		html {
+			font-family: sans-serif;
+			background-color: #000;
+		}
+	</style>
+</head>
+
+<body>
+	<!--
+	Add the following polyfill for Microsoft Edge 17/18 support:
+	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
+	(see https://caniuse.com/#feat=textencoder)
+	-->
+
+  <!-- <script src="../node_modules/cross-wasm/dist/browser/umd/index.js"></script> -->
+  <script type="module">
+    import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+    const init = async () => {
+      const someFunction = Comlink.wrap(new Worker('worker.js'))
+      await someFunction(Comlink.proxy((e) => {
+        console.log('res is ', e)
+      }))
+    }
+
+    init()
+  </script>
+
+</body>
+</html>
