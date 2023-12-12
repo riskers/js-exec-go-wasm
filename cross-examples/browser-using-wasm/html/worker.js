@@ -1,11 +1,10 @@
 importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
-importScripts('../node_modules/cross-wasm/dist/browser/umd/index.js')
+importScripts('../node_modules/cross-wasm/dist/index.worker.aio.js')
 
 console.log('UMD', CrossWasm);
 
-globalThis.__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
-
 const someFunction = async (cb) => {
+  await CrossWasm.init('../node_modules/cross-wasm/dist/cross-wasm.wasm')
   // 223
   const addRes = await CrossWasm.add(1, 222)
 

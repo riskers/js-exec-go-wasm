@@ -13,17 +13,17 @@
   "scripts": {
     "build": "webpack"
   },
-  "module": "./dist/browser/esm/index.js",
-  "main": "./dist/node/index.js",
+  "module": "./dist/index.aio.js",
+  "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/browser/esm/index.js",
-      "main": "./dist/node/index.js",
-      "default": "./dist/node/index.js",
+      "import": "./dist/index.aio.js",
+      "main": "./dist/index.js",
+      "default": "./dist/index.js",
       "types": "./types/index.d.ts"
     },
-    "./cross-wasm.wasm": "./dist/node/cross-wasm.wasm"
+    "./cross-wasm.wasm": "./dist/cross-wasm.wasm"
   },
   "files": [
     "dist",

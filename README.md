@@ -24,3 +24,11 @@ Nodejs and Browser execute WASM that Golang compiled.
 Universal wasm for Node and Browsers :) :
 
 * [cross-wasm](./packages/cross-wasm/README.md)
+
+## Example
+
+* [Browser](./cross-examples/browser-using-wasm/)
+  * ESM
+  * UMD
+  * WebWorker
+* [Nodejs](./cross-examples/nodejs-using-wasm/)

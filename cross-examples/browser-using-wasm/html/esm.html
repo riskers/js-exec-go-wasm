@@ -19,7 +19,19 @@
 	(see https://caniuse.com/#feat=textencoder)
 	-->
 
-  <script src="../dist/bundle.js"></script>
+  <!-- <script src="../dist/bundle.js"></script> -->
+
+	<script type="module">
+    import {init, add} from '../node_modules/cross-wasm/dist/index.esm.js';
+
+		const run = async () => {
+			await init();
+			const result = add(1, 2);
+			console.log(`result is: ${result}`);
+    }
+
+    run();
+	</script>
 
 </body>
 

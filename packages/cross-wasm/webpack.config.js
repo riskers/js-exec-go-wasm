@@ -8,10 +8,10 @@ module.exports = [
   {
     entry: './src/browser/index.js',
     output: {
-      path: path.resolve(__dirname, 'dist/browser/esm'),
-      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'index.esm.js',
       library: {
-        type: 'commonjs'
+        type: 'module'
       },
       wasmLoading: 'fetch',
       enabledWasmLoadingTypes: ['fetch'],
@@ -19,6 +19,7 @@ module.exports = [
     target: 'web',
     experiments: { 
       asyncWebAssembly: true,
+      outputModule: true
     },
     module: {
       rules: [
@@ -50,7 +51,7 @@ module.exports = [
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new CleanWebpackPlugin()
+      // new CleanWebpackPlugin()
     ]
   },
 
@@ -58,8 +59,8 @@ module.exports = [
   {
     entry: './src/browser/index.js',
     output: {
-      path: path.resolve(__dirname, 'dist/browser/umd'),
-      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'index.aio.js',
       library: {
         name: 'CrossWasm',
         type: 'umd'
@@ -101,7 +102,58 @@ module.exports = [
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new CleanWebpackPlugin()
+      // new CleanWebpackPlugin()
+    ]
+  },
+
+  // WebWorker UMD
+  {
+    entry: './src/browser/index.js',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'index.worker.aio.js',
+      library: {
+        name: 'CrossWasm',
+        type: 'umd'
+      },
+      wasmLoading: 'fetch',
+      enabledWasmLoadingTypes: ['fetch'],
+    },
+    target: 'webworker',
+    experiments: { 
+      asyncWebAssembly: true,
+    },
+    module: {
+      rules: [
+          {
+            test: /\.wasm$/,
+            type: "asset/resource",
+            generator: {
+              filename: '[name][ext]',
+            }
+          },
+      ],
+    },
+    mode: 'development',
+    resolve: {
+      extensions: [ '.js'],
+      fallback: {
+        // buffer: require.resolve("buffer"),
+        // crypto: require.resolve('crypto-browserify'),
+        // process: require.resolve('process/browser'),
+        crypto: false,
+        fs: false,
+        util: false,
+        // util: require.resolve('util/'),
+        // stream: require.resolve('stream-browserify'),
+        // path: require.resolve('path-browserify'),
+      }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
+      // new CleanWebpackPlugin()
     ]
   },
 
@@ -109,7 +161,7 @@ module.exports = [
   {
     entry: './src/node/index.js',
     output: {
-      path: path.resolve(__dirname, 'dist/node'),
+      path: path.resolve(__dirname, 'dist'),
       filename: 'index.js',
       library: {
         type: 'commonjs'
@@ -135,7 +187,7 @@ module.exports = [
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new CleanWebpackPlugin()
+      // new CleanWebpackPlugin()
     ]
   }
 ];
