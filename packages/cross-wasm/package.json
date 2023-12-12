@@ -13,7 +13,7 @@
   "scripts": {
     "build": "webpack"
   },
-  "module": "./dist/index.aio.js",
+  "module": "./dist/index.esm.js",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "exports": {

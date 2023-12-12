@@ -11,7 +11,7 @@ export const Keccak256 = (data) => {
 
 // 2. modify method of `exports` and `globalThis` export.
 export const startRunningService = async (input) => {
-  console.log('import.meta.url', import.meta.url)
+  // console.log('import.meta.url', import.meta.url)
   if (input === undefined) {
     input = new URL('../wasm/cross-wasm.wasm', import.meta.url)
   }
