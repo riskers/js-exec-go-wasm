@@ -38,38 +38,37 @@ As template, we need to modify these files:
 
 #### ESM
 
-```js
-import {add, Keccak256} from "cross-wasm"
+```html
+<script type="module">
+  import {init, add} from '../node_modules/cross-wasm/dist/index.esm.js';
 
-// set wasm path
-(window as any).__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
+  const run = async () => {
+    await init();
+    const result = add(1, 2);
+    console.log(`result is: ${result}`);
+  }
 
-;(async () => {
-
-  // 223
-  console.log('add res', await add(1, 222))
-
-  // 47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad
-  console.log( 'Keccak256 res:', await Keccak256('hello world') )
-})()
+  run();
+</script>
 ```
 
-> [Code](../../cross-examples/browser-using-wasm/README.md)
+> [Code](../../cross-examples/browser-using-wasm/html/esm.html)
 
 #### UMD
 
 ```html
-<script src="../node_modules/cross-wasm/dist/umd/index.js"></script>
+<script src="../node_modules/cross-wasm/dist/index.aio.js"></script>
 <script>
-  // set wasm path
-  window.__PUBLIC_CROSS_WASM_PATH__ = '../node_modules/cross-wasm/dist/node/cross-wasm.wasm';
+  // WASM exports as `CrowssWasm` UMD module.
+  console.log('UMD', CrossWasm);
 
   ;(async () => {
-    // 223
-    console.log('add res', await CrossWasm.add(1, 222))
+    await CrossWasm.init()
 
+    // 223
+    console.log('add res', CrossWasm.add(1, 222))
     // 47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad
-    console.log( 'Keccak256 res:', await CrossWasm.Keccak256('hello world') )
+    console.log( 'Keccak256 res:', CrossWasm.Keccak256('hello world') )
   })()
 </script>
 ```
