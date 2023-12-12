@@ -106,7 +106,7 @@ import {init, add, Keccak256} from "cross-wasm"
 
 ```js
 import {init, add, Keccak256} from "cross-wasm"
-import wasm from 'cross-wasm/cross-wasm.wasm'
+import 'cross-wasm/cross-wasm.wasm'
 
 ;(async () => {
   await init();
