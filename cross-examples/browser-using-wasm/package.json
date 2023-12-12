@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "http-server -c-1 -p 9000 -o ./html"
+    "start": "http-server -c-1 -p 9000 -o ./html",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",

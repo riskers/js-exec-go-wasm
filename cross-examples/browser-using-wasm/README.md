@@ -7,3 +7,9 @@ Support UMD and ESM.
 ```bash
 > npm run start
 ```
+
+## webpack build
+
+```bash
+> npm run build
+```

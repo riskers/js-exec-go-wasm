@@ -1,4 +1,5 @@
 # Cross Wasm
+
 Universal wasm for Node and Browsers.
 
 Can we use same wasm file both Nodejs and browser?
@@ -10,6 +11,7 @@ In order to pack wasm and publish it to NPM, we need to solve: How to import dif
 This repo is my solution called [cross-wasm](https://github.com/riskers/js-exec-go-wasm/blob/main/packages/cross-wasm/README.md)
 
 As template, we need to modify these files:
+
 * [wasm](./src/wasm/cross-wasm.wasm): Your wasm file
 * [expose types](./types/expose.d.ts): Depends on your wasm function name and type parameters
 * [browser/index.js](./src/browser/index.js):
@@ -75,6 +77,55 @@ As template, we need to modify these files:
 
 > [Code](../../cross-examples/browser-using-wasm/html/umd.html)
 
+#### WebWorker
+
+```js
+importScripts('../node_modules/cross-wasm/dist/index.worker.aio.js')
+(async () => {
+  await CrossWasm.init('../node_modules/cross-wasm/dist/cross-wasm.wasm')
+  // 223
+  const addRes = await CrossWasm.add(1, 222)
+  // ...
+})()
+```
+
+#### Webpack
+
+##### Set wasm path manually
+
+```js
+import {init, add, Keccak256} from "cross-wasm"
+
+;(async () => {
+  await init('../node_modules/cross-wasm/dist/cross-wasm.wasm')
+  // ...
+})()
+```
+
+##### Automatically wasm path
+
+```js
+import {init, add, Keccak256} from "cross-wasm"
+import wasm from 'cross-wasm/cross-wasm.wasm'
+
+;(async () => {
+  await init();
+  // ...
+})()
+```
+
+Webpack config add:
+
+```json
+{
+  test: /\.wasm$/,
+  type: "asset/resource",
+  generator: {
+    filename: '[name][ext]',
+  }
+}
+```
+
 ### Nodejs
 
 ```js
@@ -132,7 +183,6 @@ const wasm = new crossWasmInit("wasm CDN URL");
 ```
 
 > NOTICE: This method is not usually used because you need to decide whether to use Nodejs or Browser. Unless you want to develop a cross library.
-
 
 ## Thanks
 

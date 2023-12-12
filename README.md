@@ -28,7 +28,8 @@ Universal wasm for Node and Browsers :) :
 ## Example
 
 * [Browser](./cross-examples/browser-using-wasm/)
-  * ESM
-  * UMD
-  * WebWorker
+  * [ESM](./cross-examples/browser-using-wasm/html/esm.html)
+  * [UMD](./cross-examples/browser-using-wasm/html/umd.html)
+  * [WebWorker](./cross-examples/browser-using-wasm/html/webworker.html)
+  * [Webpack](./cross-examples/browser-using-wasm/html/webpack.html)
 * [Nodejs](./cross-examples/nodejs-using-wasm/)
