@@ -1,4 +1,4 @@
-Nodejs and Browser execute WASM that Golang compiled.
+# js execute WASM complied by Golang or TinyGo
 
 ---
 
