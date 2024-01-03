@@ -6,8 +6,8 @@
 
 ---
 
-* Go Version: `go version go1.21.0 darwin/arm64`
-* TinyGo Version: `tinygo version 0.29.0 darwin/amd64 (using go version go1.21.0 and LLVM version 15.0.0)`
+* Go Version: `go version go1.21.5 darwin/arm64`
+* TinyGo Version: `tinygo version 0.30.0 darwin/amd64 (using go version go1.21.5 and LLVM version 16.0.1)`
 * Nodejs Version: `v18.17.1`
 * wasm [source code](./wasm/README.md)
 
