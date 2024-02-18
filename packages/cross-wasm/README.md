@@ -2,23 +2,23 @@
 
 Universal wasm for Node and Browsers.
 
-Can we use same wasm file both Nodejs and browser?
+Can we use the same WASM file for both Nodejs and browsers?
 
 Here I continue to explain with [tinygo solution](../../solutions/tinygo/README.md) as the source code.
 
-In order to pack wasm and publish it to NPM, we need to solve: How to import different files of a package on different platforms?
+To pack wasm and publish it to NPM, we need to solve: How to import different files of a package on different platforms?
 
 This repo is my solution called [cross-wasm](https://github.com/riskers/js-exec-go-wasm/blob/main/packages/cross-wasm/README.md)
 
-As template, we need to modify these files:
+As a template, we need to modify these files:
 
 * [wasm](./src/wasm/cross-wasm.wasm): Your wasm file
 * [expose types](./types/expose.d.ts): Depends on your wasm function name and type parameters
 * [browser/index.js](./src/browser/index.js):
-  * the method of `exports` and `globalThis` export in `startRunningService` function.
+  * the method of `exports` and `globalThis` export in the `startRunningService` function.
   * wasm function such as `add` or `Keccak256`
 * [node/index.js](./src/node/index.js):
-  * the method of `exports` and `globalThis` export in `startRunningService` function.
+  * the method of `exports` and `globalThis` export in the `startRunningService` function.
   * wasm function such as `add` or `Keccak256`
 * [package.json](./package.json): `"./cross-wasm.wasm"` field in `exports`
 
@@ -144,7 +144,7 @@ const { add, Keccak256 } = require("cross-wasm");
 
 ### Universal JavaScript
 
-You can see, `cross-wasm` supply both Nodejs and Browser functionality but two entry points usage are different.
+The `cross-wasm` supplies both Nodejs and Browser functionality, but the usage of the two entry points is different.
 
 How to use cross-wasm both on Nodejs and Browser regardless of the environment?
 
@@ -153,8 +153,8 @@ You can reference this code:
 ```js
 export class crossWasmInit {  
   // 1. init wasm 
-  // if using on Nodejs , not set wasmURL
-  // if using on browser, set wasmURL
+  // If using on Nodejs, not set wasmURL
+  // If using on browser, set wasmURL
   constructor(wasmURL?: string) {
     if (wasmURL) {
       globalThis.__PUBLIC_CROSS_WASM_PATH__ = wasmURL;
@@ -182,7 +182,7 @@ const wasm = new crossWasmInit("wasm CDN URL");
 })()
 ```
 
-> NOTICE: This method is not usually used because you need to decide whether to use Nodejs or Browser. Unless you want to develop a cross library.
+> NOTICE: This method is not usually used because you must decide whether to use Nodejs or Browser. Unless you want to develop a cross-library.
 
 ## Thanks
 
